@@ -1,0 +1,36 @@
+# Paper ablation: w/o attn
+# Removes pool-level self-attention but keeps feature fusion. Retrain Stage 0+1.
+encoder: sentence-transformers/all-MiniLM-L6-v2
+max_length: 128
+freeze_encoder: false
+n: 20
+k: 10
+t_max: 11
+m_max: 4
+l_ctx: 1024
+mlp_hidden: 256
+attn_heads: 4
+dropout: 0.0
+lambda_qa: 1.0
+eta_time: 0.2
+xi_cov: 0.2
+gamma_cost: 0.3
+cost: count
+mask_tau_neg: false
+skip_attn: true
+lr: 0.00002
+lr_encoder: 0.000005
+weight_decay: 0.01
+batch_size: 8
+grad_clip: 1.0
+stage0_epochs: 20
+stage1_epochs: 12
+stage0_patience: 4
+stage1_patience: 3
+min_delta: 0.0001
+entropy_coef: 0.01
+seed: 0
+device: cuda
+train_jsonl: ../TASTE_data/temppool_timeqa/train.jsonl
+dev_jsonl: ../TASTE_data/temppool_timeqa/dev.jsonl
+ckpt_dir: checkpoints/ablations/wo_attn
